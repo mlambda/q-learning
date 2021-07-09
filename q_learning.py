@@ -1,16 +1,16 @@
 from io import StringIO
-from random import choice as random_choice, random
-from typing import Generic, Hashable, Sequence, Tuple, TypeVar
+from random import choice as random_choice
+from random import random
+from typing import Any, Generic, Hashable, Sequence, Tuple, TypeVar
 
 from numpy import float32, linspace, zeros
-
 
 StateT = TypeVar("StateT", bound=Hashable)
 ActionT = TypeVar("ActionT", bound=Hashable)
 
 
 class BaseEnvironment(Generic[StateT, ActionT]):
-    def step(self, action: ActionT) -> Tuple[StateT, float, bool]:
+    def step(self, action: ActionT) -> Tuple[StateT, float, bool, Any]:
         raise NotImplementedError()
 
     def reset(self) -> StateT:
@@ -81,8 +81,7 @@ class QLearner(Generic[StateT, ActionT]):
             else:
                 # Exploration
                 a = random_choice(self.actions)
-            new_s, r, done = self.environment.step(a)
-            print(s, a, new_s)
+            new_s, r, done, _ = self.environment.step(a)
             total_r += r
             self.bellman_update(s, a, r, new_s)
             s = new_s

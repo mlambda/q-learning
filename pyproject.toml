@@ -5,8 +5,9 @@ name = "q-learning"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-numpy = "^1.20.3"
+gym = "^0.18.3"
 python = "^3.8"
+tensorflow = "^2.5.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.5b1"
